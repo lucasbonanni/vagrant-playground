@@ -1,0 +1,40 @@
+
+- block:
+  - import_tasks: utilities.yml
+
+
+- name: base | install antigen
+  tags: dotfiles
+  git:
+    repo: https://github.com/zsh-users/antigen.git
+    dest: /home/vagrant/.config/antigen
+    force: yes
+
+- name: base | copy dotfiles
+  tags: dotfiles
+  copy:
+    src: dotfiles/{{ item.src }}
+    dest: /home/vagrant/{{ item.dest }}
+    owner: vagrant
+    group: vagrant
+    mode: 0600
+  with_items:
+    - { src: 'bashrc', dest: '.bashrc' }
+    - { src: 'zshrc', dest: '.zshrc' }
+    - { src: 'antigenrc', dest: '.antigenrc' }
+    - { src: 'starship.toml', dest: '.config/starship.toml' }
+
+
+# # free-form (string) arguments, all arguments on one line
+- name: base | Download starship script
+  tags: dotfiles
+  shell: "curl -sS https://starship.rs/install.sh -o /home/vagrant/install.sh"
+
+- name: base | Set script permissions
+  tags: dotfiles
+  shell: "chmod u+x /home/vagrant/install.sh"
+  become: true
+
+- name: base | Install starship
+  tags: dotfiles
+  ansible.builtin.script: "/home/vagrant/install.sh --yes"

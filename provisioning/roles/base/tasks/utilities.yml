@@ -1,0 +1,28 @@
+- name: system setup | utilities | install utility packages
+  tags: packages,system,settings
+  package:
+    state: latest
+    name:
+      - at
+      - colordiff
+      - curl
+      - git
+      - htop
+      - iotop
+      - lsof
+      - mc
+      - mosh
+      - ncdu
+      - neofetch
+      - net-tools
+      - nmap
+      - ranger
+      - rsync
+      - screen
+      - sshfs
+      - tmux
+      - traceroute
+      - wget
+      - whois
+      - fzf
+      - zsh

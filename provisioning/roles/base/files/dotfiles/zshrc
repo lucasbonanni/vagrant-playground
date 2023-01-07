@@ -1,0 +1,6 @@
+
+source $HOME/.config/antigen/antigen.zsh
+antigen init .antigenrc
+
+
+eval "$(starship init zsh)"
